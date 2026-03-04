@@ -34,3 +34,6 @@ DarshanEase is a full-stack MERN application for managing temple darshan booking
 
 ## 👨‍💻 Developed with ❤️ by 
     PRAJWAL PATHAK
+    Garvit Tyagi
+    Kartik Upadhyay
+    Sharad.
