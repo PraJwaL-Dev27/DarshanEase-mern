@@ -170,26 +170,27 @@ function TempleDetails() {
 
         {/* Feedback Section */}
         <Box sx={{ mt: 10 }}>
-          <Typography
-            variant="h5"
-            sx={{
-              mb: 2,
-              fontWeight: 700,
-              fontFamily: "'Playfair Display', serif",
-              color: "#3e2723",
-            }}
-          >
-            Reviews & Ratings ⭐
-          </Typography>
+          <Typography variant="h5" sx={{ mt: 6, mb: 3 }}>
+  Reviews & Ratings ⭐
+</Typography>
 
-          {feedbacks.length > 0 && (
-            <Box sx={{ mb: 3 }}>
-              <Rating value={Number(averageRating)} readOnly precision={0.5} />
-              <Typography>
-                {averageRating} out of 5 ({feedbacks.length} reviews)
-              </Typography>
-            </Box>
-          )}
+{feedbacks.length === 0 ? (
+  <Typography sx={{ mb: 4 }}>
+    No reviews yet. Be the first to review!
+  </Typography>
+) : (
+  feedbacks.map((fb) => (
+    <Box key={fb._id} sx={{ mb: 2 }}>
+      <Typography fontWeight={600}>
+        {fb.user?.name}
+      </Typography>
+
+      <Rating value={fb.rating} readOnly />
+
+      <Typography>{fb.comment}</Typography>
+    </Box>
+  ))
+)}
 
           {/* Submit Feedback */}
           {token && (

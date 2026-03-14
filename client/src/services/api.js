@@ -1,7 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://darshanease-api.onrender.com/api",
+   headers: {
+    "Cache-Control": "no-cache",
+   },
 });
 
 // 🔐 Attach token automatically to every request

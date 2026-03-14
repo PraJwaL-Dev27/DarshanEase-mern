@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import FadeInSection from "../components/FadeInSection";
 import {
   Box,
   Container,
@@ -35,6 +36,7 @@ function Temples() {
 
   if (loading) {
     return (
+      
       <Box sx={{ textAlign: "center", mt: 10 }}>
         <CircularProgress />
       </Box>
