@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import TempleHinduIcon from "@mui/icons-material/TempleHindu";
 import { motion } from "framer-motion";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Navbar() {
@@ -17,15 +17,17 @@ function Navbar() {
   const [user, setUser] = useState(null);
   const [scrolled, setScrolled] = useState(false);
 
-  // 🔐 Check login state
+  // Check login state
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else {
+      setUser(null);
     }
   }, [location]);
 
-  // 🌊 Scroll effect
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -35,7 +37,7 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 🚪 Logout
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -59,10 +61,12 @@ function Navbar() {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          px: 6,
+          px: { xs: 2, md: 6 },   // responsive padding
+          flexWrap: "wrap",       // prevents overflow
         }}
       >
-        {/* 🔥 LOGO SECTION */}
+
+        {/* Logo */}
         <motion.div
           initial={{ y: -40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -103,95 +107,100 @@ function Navbar() {
           </Typography>
         </motion.div>
 
-        {/* 🔥 CENTER NAV LINKS */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        {/* Navigation */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 3.5,
+          }}
+        >
           <Button
-            sx={{ color: "white", mr: 3 }}
+            sx={{ color: "white" }}
             onClick={() => navigate("/temples")}
           >
             Temples
           </Button>
 
-         {user ? (
-  <>
-    {/* USER Role */}
-    {user.role === "USER" && (
-      <Button
-        sx={{ color: "white", mr: 2 }}
-        onClick={() => navigate("/my-bookings")}
-      >
-        My Bookings
-      </Button>
-    )}
-    {user.role === "ADMIN" && (
-  <Button
-    sx={{ color: "white", mr: 2 }}
-    onClick={() => navigate("/admin")}
-  >
-    Admin Panel
-  </Button>
-)}
+          {user ? (
+            <>
+              {user.role === "USER" && (
+                <Button
+                  sx={{ color: "white" }}
+                  onClick={() => navigate("/my-bookings")}
+                >
+                  My Bookings
+                </Button>
+              )}
 
-    {/* ORGANIZER Role */}
-    {user.role === "ORGANIZER" && (
-      <>
-        <Button
-          sx={{ color: "white", mr: 2 }}
-          onClick={() => navigate("/my-temples")}
-        >
-          My Temples
-        </Button>
+              {user.role === "ADMIN" && (
+                <Button
+                  sx={{ color: "white" }}
+                  onClick={() => navigate("/admin")}
+                >
+                  Admin Panel
+                </Button>
+              )}
 
-        <Button
-          sx={{ color: "white", mr: 2 }}
-          onClick={() => navigate("/organizer-bookings")}
-        >
-          Organizer Dashboard
-        </Button>
-      </>
-    )}
+              {user.role === "ORGANIZER" && (
+                <>
+                  <Button
+                    sx={{ color: "white" }}
+                    onClick={() => navigate("/my-temples")}
+                  >
+                    My Temples
+                  </Button>
 
-    {/* Logout Button (All Roles) */}
-    <Button
-      variant="outlined"
-      sx={{
-        color: "white",
-        borderColor: "white",
-        "&:hover": {
-          borderColor: "#f59e0b",
-          color: "#f59e0b",
-        },
-      }}
-      onClick={handleLogout}
-    >
-      Logout
-    </Button>
-  </>
-) : (
-  <>
-    <Button
-      sx={{ color: "white", mr: 2 }}
-      onClick={() => navigate("/login")}
-    >
-      Login
-    </Button>
+                  <Button
+                    sx={{ color: "white" }}
+                    onClick={() => navigate("/organizer-bookings")}
+                  >
+                    Organizer Dashboard
+                  </Button>
+                </>
+              )}
 
-    <Button
-      variant="outlined"
-      sx={{
-        color: "white",
-        borderColor: "white",
-        "&:hover": {
-          borderColor: "#f59e0b",
-          color: "#f59e0b",
-        },
-      }}
-      onClick={() => navigate("/register")}
-    >
-      Register
-    </Button>
-  </>
-)}
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "white",
+                  borderColor: "white",
+                  "&:hover": {
+                    borderColor: "#f59e0b",
+                    color: "#f59e0b",
+                  },
+                }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                sx={{ color: "white" }}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "white",
+                  borderColor: "white",
+                  "&:hover": {
+                    borderColor: "#f59e0b",
+                    color: "#f59e0b",
+                  },
+                }}
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </Button>
+            </>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

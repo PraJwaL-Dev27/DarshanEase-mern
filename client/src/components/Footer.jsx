@@ -4,8 +4,10 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -58,22 +60,28 @@ function Footer() {
               Quick Links
             </Typography>
 
-            {["Home", "Temples", "Bookings", "Contact"].map((item) => (
-              <Typography
-                key={item}
-                sx={{
-                  fontFamily: "'Poppins', sans-serif",
-                  mb: 1,
-                  cursor: "pointer",
-                  transition: "0.3s",
-                  "&:hover": {
-                    color: "#f59e0b",
-                  },
-                }}
-              >
-                {item}
-              </Typography>
-            ))}
+            {[
+  { label: "Home", path: "/" },
+  { label: "Temples", path: "/temples" },
+  { label: "Bookings", path: "/my-bookings" },
+  { label: "Contact", path: "/contact" },
+].map((item) => (
+  <Typography
+    key={item.label}
+    onClick={() => navigate(item.path)}
+    sx={{
+      fontFamily: "'Poppins', sans-serif",
+      mb: 1,
+      cursor: "pointer",
+      transition: "0.3s",
+      "&:hover": {
+        color: "#f59e0b",
+      },
+    }}
+  >
+    {item.label}
+  </Typography>
+))}
           </Grid>
 
           {/* Contact Info */}
@@ -98,15 +106,15 @@ function Footer() {
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
               <PhoneIcon sx={{ mr: 1, fontSize: 20 }} />
-              <Typography sx={{ fontFamily: "'Poppins', sans-serif" }}>
-                +91 98765 43210
+              <Typography  sx={{ fontFamily: "'Poppins', sans-serif" }}>
+                +91 8102158173
               </Typography>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
               <EmailIcon sx={{ mr: 1, fontSize: 20 }} />
               <Typography sx={{ fontFamily: "'Poppins', sans-serif" }}>
-                support@darshanease.com
+                pathakprajwal675@gmail.com
               </Typography>
             </Box>
 
